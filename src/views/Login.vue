@@ -29,7 +29,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
   data () {
     return {
@@ -43,7 +42,7 @@ export default {
   },
   methods: {
     async onSubmit () {
-      const res = await axios.post('http://127.0.0.1:3000/login', {
+      const res = await this.$axios.post('/login', {
         username: this.username,
         password: this.password
       })

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
+import axios from 'axios'
 
 // 导入通用样式
 import './styles/base.less'
@@ -18,6 +19,10 @@ import Vant from 'vant'
 import 'vant/lib/index.css'
 
 Vue.use(Vant)
+axios.defaults.baseURL = 'http://127.0.0.1:3000'
+// axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
+// axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+Vue.prototype.$axios = axios
 
 // 按需加载
 // import { Button } from 'vant'
