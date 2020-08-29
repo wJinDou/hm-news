@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import axios from 'axios'
+import moment from 'moment'
 
 // 导入通用样式
 import './styles/base.less'
@@ -13,6 +14,7 @@ import 'amfe-flexible'
 // 导入全局组件
 import myHeader from './components/myHeader.vue'
 import hmLogo from './components/hmLogo.vue'
+import HmNavtem from './components/HmNavtem.vue'
 
 // 导入所有组件的方式
 import Vant from 'vant'
@@ -30,6 +32,11 @@ Vue.prototype.$axios = axios
 
 Vue.component('my-header', myHeader)
 Vue.component('hm-logo', hmLogo)
+Vue.component('hm-navtem', HmNavtem)
+
+Vue.filter('filterTime', (input, val) => {
+  return moment(input).format(val)
+})
 
 Vue.config.productionTip = false
 
