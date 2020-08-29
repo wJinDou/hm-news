@@ -45,7 +45,7 @@ export default {
       rules: {
         userNameRules: [{ required: true, message: '请填写用户名/手机' }, { pattern: /^\d{6,11}$/, trigger: 'onChange', message: '请输入6-11位的账号(#`O′)' }],
         passwordRules: [{ required: true, message: '请输入密码' }, { pattern: /^\w{3,9}$/, trigger: 'onChange', message: '密码只能是3到9位(#`O′)' }],
-        nicknameRules: [{ required: true, message: '请输入昵称' }, { pattern: /^^[\u4e00-\u9fa5]{2,5}$/, trigger: 'onChange', message: '昵称只能是2到5位的中文(#`O′)' }]
+        nicknameRules: [{ required: true, message: '请输入昵称' }, { pattern: /^[\u4e00-\u9fa5]{2,5}$/, trigger: 'onChange', message: '昵称只能是2到5位的中文(#`O′)' }]
       }
     }
   },
@@ -59,7 +59,24 @@ export default {
       const { message, statusCode } = res.data
       if (statusCode === 200) {
         this.$toast.success(message)
-        this.$router.push('/login')
+        // 路由传参方式一,通过url
+        // this.$router.push(`/login?username=${this.username}&password=${this.password}`)
+        // 路由传参方式二：通过query对象
+        // this.$router.push({
+        //   path: '/login',
+        //   query: {
+        //     username: this.username,
+        //     password: this.password
+        //   }
+        // })
+        // 路由传参方式三：通过params传递
+        this.$router.push({
+          name: 'login',
+          params: {
+            username: this.username,
+            password: this.password
+          }
+        })
       } else {
         this.$toast.fail(message)
       }
@@ -68,10 +85,11 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped >
 .resgiter{
   height: 100vh;
-  .tips{
+}
+.tips{
     margin: 0 20px;
     text-align: right;
     font-size: 14px;
@@ -79,5 +97,4 @@ export default {
       color:cornflowerblue;
     }
   }
-}
 </style>

@@ -30,6 +30,24 @@
 
 <script>
 export default {
+  created () {
+    // 方式一：通过url的方式
+    // console.log(this.$route)
+    // const { username, password } = this.$route.query
+    // this.username = username
+    // this.password = password
+
+    // 方式二：通过query对象
+    // console.log(this.$route)
+    // const { username, password } = this.$route.query
+    // this.username = username
+    // this.password = password
+
+    // 方式三：通过params对象传递
+    const { username, password } = this.$route.params
+    this.username = username
+    this.password = password
+  },
   data () {
     return {
       username: '',
@@ -59,9 +77,10 @@ export default {
 }
 </script>
 
-<style lang="less" >
+<style lang="less" scoped >
 .login{
   height: 100vh;
+}
   .tips{
     margin: 0 20px;
     text-align: right;
@@ -70,6 +89,5 @@ export default {
       color:cornflowerblue;
     }
   }
-}
 
 </style>

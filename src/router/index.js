@@ -7,8 +7,8 @@ import Resgiter from '../views/Resgiter.vue'
 Vue.use(VueRouter)
 
 const routes = [
-  { path: '/login', component: Login },
-  { path: '/resgiter', component: Resgiter }
+  { path: '/login', component: Login, name: 'login' },
+  { path: '/resgiter', component: Resgiter, name: 'resgiter' }
 ]
 
 const router = new VueRouter({
