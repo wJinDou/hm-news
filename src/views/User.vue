@@ -6,7 +6,7 @@
       </div>
       <div class="info">
         <div class="nickname">
-          <span class="iconfont iconxingbienan"></span>
+          <span class="iconfont" :class="user.gender? ' iconxingbienan' : 'iconxingbienv'" ></span>
           {{user.nickname}}
         </div>
         <div class="time"> {{user.create_date | filterTime('YYYY-MM-DD') }} </div>
