@@ -40,15 +40,15 @@
 export default {
   async created () {
     const id = localStorage.getItem('userId')
-    const res = await this.$axios.get(`/user/${id}`, {
-      headers: { Authorization: localStorage.getItem('token') }
-    })
+    const res = await this.$axios.get(`/user/${id}`)
     const { statusCode, message } = res.data
     if (statusCode === 200) {
       this.user = res.data.data
       console.log(this.user)
     } else {
       this.$toast(message)
+      localStorage.removeItem('token')
+      localStorage.removeItem('userId')
       this.$router.push('/login')
     }
   },
@@ -63,18 +63,6 @@ export default {
       return this.$axios.defaults.baseURL
     }
   }
-  // beforeRouteEnter (to, from, next) {
-  //   console.log(11)
-  //   next()
-  // },
-  // beforeRouteUpdate (to, from, next) {
-  //   console.log(22)
-  //   next()
-  // },
-  // beforeRouteLeave (to, from, next) {
-  //   console.log(33)
-  //   next()
-  // }
 }
 </script>
 

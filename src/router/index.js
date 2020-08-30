@@ -1,12 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import { Toast } from 'vant'
 
 // 导入组件
 import Login from '../views/Login.vue'
 import Resgiter from '../views/Resgiter.vue'
 import User from '../views/User.vue'
 Vue.use(VueRouter)
-
+Vue.use(Toast)
 const routes = [
   {
     path: '/login',
@@ -53,6 +54,7 @@ router.beforeEach((to, from, next) => {
   if (to.name !== 'user' || localStorage.getItem('token')) {
     next()
   } else {
+    Toast('请先登录')
     router.push('/login')
   }
 })
