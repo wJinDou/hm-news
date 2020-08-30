@@ -1,6 +1,6 @@
 <template>
   <div class="resgiter">
-    <my-header>注册</my-header>
+    <hm-header>注册</hm-header>
     <hm-logo></hm-logo>
     <van-form @submit="onSubmit">
       <van-field

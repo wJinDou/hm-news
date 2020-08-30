@@ -16,6 +16,7 @@ export default {
       if (this.to) {
         this.$router.push(this.to)
       }
+      this.$emit('click')
     }
   }
 }

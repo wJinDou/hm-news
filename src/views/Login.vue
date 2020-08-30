@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <my-header>登录</my-header>
+    <hm-header>登录</hm-header>
     <hm-logo></hm-logo>
     <van-form @submit="onSubmit">
       <van-field

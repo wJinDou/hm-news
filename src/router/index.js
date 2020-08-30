@@ -6,6 +6,7 @@ import { Toast } from 'vant'
 import Login from '../views/Login.vue'
 import Resgiter from '../views/Resgiter.vue'
 import User from '../views/User.vue'
+import UserEdit from '../views/UserEdit.vue'
 Vue.use(VueRouter)
 Vue.use(Toast)
 const routes = [
@@ -19,16 +20,8 @@ const routes = [
     path: '/user',
     component: User,
     name: 'user'
-    // beforeEnter: (to, from, next) => {
-    //   console.log(1)
-    //   if (localStorage.getItem('token')) {
-    //     next()
-    //   } else {
-    //     // Vue.$router.push('/login')
-    //     // window.location.hash = '/login'
-    //   }
-    // }
-  }
+  },
+  { path: '/user-edit', component: UserEdit, name: 'user-edit' }
 ]
 
 const originalPush = VueRouter.prototype.push
@@ -51,7 +44,8 @@ router.beforeEach((to, from, next) => {
   //   next()
   // }
   // 简写方式：
-  if (to.name !== 'user' || localStorage.getItem('token')) {
+  const url = ['user', 'user-edit']
+  if (!url.includes(to.name) || localStorage.getItem('token')) {
     next()
   } else {
     Toast('请先登录')

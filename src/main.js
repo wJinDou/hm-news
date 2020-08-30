@@ -12,7 +12,7 @@ import './styles/iconfont.css'
 import 'amfe-flexible'
 
 // 导入全局组件
-import myHeader from './components/myHeader.vue'
+import hmHeader from './components/hmHeader.vue'
 import hmLogo from './components/hmLogo.vue'
 import HmNavtem from './components/HmNavtem.vue'
 
@@ -35,7 +35,6 @@ axios.interceptors.request.use(config => {
 
 // 响应拦截器
 axios.interceptors.response.use(response => {
-  console.log(response)
   const { message, statusCode } = response.data
   if (statusCode === 401 && message === '用户信息验证失败') {
     Toast(message)
@@ -51,7 +50,7 @@ axios.interceptors.response.use(response => {
 // import { Button } from 'vant'
 // Vue.use(Button)
 
-Vue.component('my-header', myHeader)
+Vue.component('hm-header', hmHeader)
 Vue.component('hm-logo', hmLogo)
 Vue.component('hm-navtem', HmNavtem)
 

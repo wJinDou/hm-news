@@ -22,7 +22,7 @@ export default {
 header {
   display: flex;
   height: 50px;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid #ccc;
   line-height: 50px;
   text-align: center;
   .back,

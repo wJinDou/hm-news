@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="user">
+    <div class="user" @click='toEdit' >
       <div class="pic">
         <img :src="(base + user.head_img)" alt />
       </div>
@@ -27,29 +27,25 @@
         <template>我的收藏</template>
         <template #title >文章/视频</template>
     </hm-navtem>
-    <hm-navtem to="/setting" >
+    <hm-navtem to="/user-edit" >
         <template #title >设置</template>
     </hm-navtem>
-    <hm-navtem to="/exit" >
-        <template #title >退出</template>
-    </hm-navtem>
+    <div class="exit" >
+      <van-button @click='exit' block type="danger">退出系统</van-button>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   async created () {
+    // 请求用户信息并渲染
     const id = localStorage.getItem('userId')
     const res = await this.$axios.get(`/user/${id}`)
-    const { statusCode, message } = res.data
+    const { statusCode } = res.data
     if (statusCode === 200) {
       this.user = res.data.data
       console.log(this.user)
-    } else {
-      this.$toast(message)
-      localStorage.removeItem('token')
-      localStorage.removeItem('userId')
-      this.$router.push('/login')
     }
   },
   data () {
@@ -57,9 +53,28 @@ export default {
       user: {}
     }
   },
+  methods: {
+    // 登出功能
+    async exit () {
+      try {
+        await this.$dialog.confirm({
+          title: '温馨提示❕',
+          message: '您确定要登出本系统吗？💨'
+        })
+      } catch (err) {
+        return this.$toast('您取消了退出')
+      }
+      localStorage.removeItem('token')
+      localStorage.removeItem('userId')
+      this.$toast.success('已成功退出')
+      this.$router.push('/login')
+    },
+    toEdit () {
+      this.$router.push('user-edit')
+    }
+  },
   computed: {
     base () {
-      // console.log(this.$axios.defaults.baseURL)
       return this.$axios.defaults.baseURL
     }
   }
@@ -87,7 +102,10 @@ export default {
     margin-left: 15px;
     font-size: 14px;
     line-height: 20px;
-    .iconfont {
+    .iconxingbienan {
+      color: skyblue;
+    }
+    .iconxingbienv {
       color: pink;
     }
     .time {
@@ -100,5 +118,8 @@ export default {
       color: #999;
     }
   }
+}
+.exit{
+  padding: 10px;
 }
 </style>
