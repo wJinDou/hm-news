@@ -34,15 +34,6 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  // if (to.name === 'user') {
-  //   if (localStorage.getItem('token')) {
-  //     next()
-  //   } else {
-  //     router.push('/login')
-  //   }
-  // } else {
-  //   next()
-  // }
   // 简写方式：
   const url = ['user', 'user-edit']
   if (!url.includes(to.name) || localStorage.getItem('token')) {
@@ -52,11 +43,5 @@ router.beforeEach((to, from, next) => {
     router.push('/login')
   }
 })
-
-// router.afterEach((to, from) => {
-//   console.log('之后')
-//   console.log(to)
-//   console.log(from)
-// })
 
 export default router
