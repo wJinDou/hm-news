@@ -9,17 +9,17 @@
           <span class="iconfont" :class="user.gender? ' iconxingbienan' : 'iconxingbienv'" ></span>
           {{user.nickname}}
         </div>
-        <div class="time"> {{user.create_date | filterTime('YYYY-MM-DD') }} </div>
+        <div class="time"> {{user.create_date | filterTime }} </div>
       </div>
       <div class="arrow">
         <span class="iconfont iconjiantou1"></span>
       </div>
     </div>
-    <hm-navtem to="/guanzhu" >
+    <hm-navtem to="/follow" >
         <template>关注的用户</template>
         <template #title >我的关注</template>
     </hm-navtem>
-    <hm-navtem to="/gentie" >
+    <hm-navtem to="/mycomment" >
         <template>我的跟帖</template>
         <template #title >跟帖/回复</template>
     </hm-navtem>

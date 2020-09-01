@@ -7,6 +7,8 @@ import Login from '../views/Login.vue'
 import Resgiter from '../views/Resgiter.vue'
 import User from '../views/User.vue'
 import UserEdit from '../views/UserEdit.vue'
+import Follow from '../views/Follow.vue'
+import MyComment from '../views/myComment.vue'
 Vue.use(VueRouter)
 Vue.use(Toast)
 const routes = [
@@ -21,7 +23,9 @@ const routes = [
     component: User,
     name: 'user'
   },
-  { path: '/user-edit', component: UserEdit, name: 'user-edit' }
+  { path: '/user-edit', component: UserEdit, name: 'user-edit' },
+  { path: '/follow', component: Follow, name: 'follow' },
+  { path: '/mycomment', component: MyComment, name: 'mycomment' }
 ]
 
 const originalPush = VueRouter.prototype.push
@@ -35,7 +39,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   // 简写方式：
-  const url = ['user', 'user-edit']
+  const url = ['user', 'user-edit', 'follow', 'mycomment']
   if (!url.includes(to.name) || localStorage.getItem('token')) {
     next()
   } else {
