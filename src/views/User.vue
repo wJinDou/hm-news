@@ -23,7 +23,7 @@
         <template>我的跟帖</template>
         <template #title >跟帖/回复</template>
     </hm-navtem>
-    <hm-navtem to="/shoucang" >
+    <hm-navtem to="/mystar" >
         <template>我的收藏</template>
         <template #title >文章/视频</template>
     </hm-navtem>

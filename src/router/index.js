@@ -9,6 +9,7 @@ import User from '../views/User.vue'
 import UserEdit from '../views/UserEdit.vue'
 import Follow from '../views/Follow.vue'
 import MyComment from '../views/myComment.vue'
+import myStar from '../views/myStar.vue'
 Vue.use(VueRouter)
 Vue.use(Toast)
 const routes = [
@@ -25,7 +26,8 @@ const routes = [
   },
   { path: '/user-edit', component: UserEdit, name: 'user-edit' },
   { path: '/follow', component: Follow, name: 'follow' },
-  { path: '/mycomment', component: MyComment, name: 'mycomment' }
+  { path: '/mycomment', component: MyComment, name: 'mycomment' },
+  { path: '/mystar', component: myStar, name: 'mystar' }
 ]
 
 const originalPush = VueRouter.prototype.push
@@ -39,7 +41,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   // 简写方式：
-  const url = ['user', 'user-edit', 'follow', 'mycomment']
+  const url = ['user', 'user-edit', 'follow', 'mycomment', 'mystar']
   if (!url.includes(to.name) || localStorage.getItem('token')) {
     next()
   } else {
