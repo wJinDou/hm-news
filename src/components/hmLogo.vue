@@ -8,7 +8,7 @@
 export default {}
 </script>
 
-<style lang="less" >
+<style lang="less" scoped >
 .logo {
   text-align: center;
   padding: 20px 0;

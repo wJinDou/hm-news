@@ -3,13 +3,14 @@ import VueRouter from 'vue-router'
 import { Toast } from 'vant'
 
 // 导入组件
-import Login from '../views/Login.vue'
-import Resgiter from '../views/Resgiter.vue'
-import User from '../views/User.vue'
-import UserEdit from '../views/UserEdit.vue'
-import Follow from '../views/Follow.vue'
-import MyComment from '../views/myComment.vue'
-import myStar from '../views/myStar.vue'
+import Login from '../views/user/Login.vue'
+import Resgiter from '../views/user/Resgiter.vue'
+import User from '../views/user/User.vue'
+import UserEdit from '../views/user/UserEdit.vue'
+import Follow from '../views/user/Follow.vue'
+import MyComment from '../views/user/myComment.vue'
+import myStar from '../views/user/myStar.vue'
+import Index from '../views/index/index.vue'
 Vue.use(VueRouter)
 Vue.use(Toast)
 const routes = [
@@ -27,7 +28,8 @@ const routes = [
   { path: '/user-edit', component: UserEdit, name: 'user-edit' },
   { path: '/follow', component: Follow, name: 'follow' },
   { path: '/mycomment', component: MyComment, name: 'mycomment' },
-  { path: '/mystar', component: myStar, name: 'mystar' }
+  { path: '/mystar', component: myStar, name: 'mystar' },
+  { path: '/', component: Index, name: '/' }
 ]
 
 const originalPush = VueRouter.prototype.push
