@@ -8,7 +8,7 @@
           <div class="search">
               <span class="iconfont iconsearch" > </span>搜索
           </div>
-        <div class="user">
+        <div class="user" @click="$router.push('/user')" >
               <span class="iconfont iconwode" ></span>
           </div>
       </div>
@@ -62,7 +62,7 @@ export default {
       const activeList = JSON.parse(localStorage.getItem('activeList'))
       if (activeList) {
         this.tabList = activeList
-        this.getUserPost(this.tabList[0].id)
+        this.getUserPost(this.tabList[this.active].id)
         return
       }
       const res = await this.$axios.get('/category')
@@ -70,7 +70,7 @@ export default {
       const { statusCode, data } = res.data
       if (statusCode === 200) {
         this.tabList = data
-        this.getUserPost(this.tabList[0].id)
+        this.getUserPost(this.tabList[this.active].id)
       }
     },
     async getUserPost (id) {
@@ -81,6 +81,9 @@ export default {
           category: id
         }
       })
+      if (this.pageIndex === 1) {
+        this.newsList = []
+      }
       console.log(res)
       const { statusCode, data } = res.data
       if (statusCode === 200) {
@@ -113,7 +116,7 @@ export default {
   },
   watch: {
     active (val) {
-      console.log(val)
+      console.log('切换加载')
       this.newsList = []
       this.pageIndex = 1
       this.finished = false

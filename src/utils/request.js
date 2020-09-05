@@ -13,7 +13,9 @@ Vue.prototype.$axios = axios
 // 发送请求之前携带上token
 axios.interceptors.request.use(config => {
   const token = localStorage.getItem('token')
-  config.headers.Authorization = token
+  if (token) {
+    config.headers.Authorization = token
+  }
   return config
 })
 

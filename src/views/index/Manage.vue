@@ -8,7 +8,7 @@
           </ul>
       </div>
       <div class="addTab">
-          <div>点击删除以下频道</div>
+          <div>点击添加以下频道</div>
           <ul>
               <li v-for="item in deactiveList" :key="item.id" @click="add(item.id)" > {{item.name}} </li>
           </ul>
