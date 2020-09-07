@@ -42,6 +42,7 @@
 
 <script>
 export default {
+  name: 'index',
   data () {
     return {
       active: 0,
@@ -55,7 +56,18 @@ export default {
     }
   },
   created () {
+    console.log('index的创建')
     this.getUserCategory()
+  },
+  destroyed () {
+    console.log('index的销毁')
+  },
+  activated () {
+    console.log('激活缓存时')
+    this.getUserCategory()
+  },
+  deactivated () {
+    console.log('不激活缓存时')
   },
   methods: {
     async getUserCategory () {

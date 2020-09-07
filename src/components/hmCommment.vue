@@ -8,12 +8,14 @@
         <div class="nickname"> {{comment.user.nickname}} </div>
         <div class="time"> {{comment.create_date | fromNow}} </div>
       </div>
-      <div class="writeBack">
+      <div class="writeBack" @click="reply(comment.user.nickname, comment.id)" >
         回复
       </div>
     </div>
     <div class="content">
-      <hm-floor :comment="comment.parent" v-if="comment.parent" ></hm-floor>
+        <!-- 子传父传父传父传父传父…………的方法 -->
+      <!-- <hm-floor @reply="reply" :count="getParentCount(comment)" :comment="comment.parent" v-if="comment.parent" ></hm-floor> -->
+      <hm-floor :count="getParentCount(comment)" :comment="comment.parent" v-if="comment.parent" ></hm-floor>
       <div class="content_txt">
         {{comment.content}}
       </div>
@@ -25,6 +27,20 @@
 export default {
   props: {
     comment: Object
+  },
+  methods: {
+    // 计算评论里有多少个parent
+    getParentCount (data, count = 0) {
+      let num = count
+      if (data.parent) {
+        return this.getParentCount(data.parent, ++num)
+      } else {
+        return num
+      }
+    },
+    reply (nickname, id) {
+      this.$emit('reply', nickname, id)
+    }
   }
 }
 </script>

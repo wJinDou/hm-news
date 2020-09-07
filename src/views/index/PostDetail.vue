@@ -47,12 +47,19 @@
   <!-- 评论列表 -->
   <div class="commment_list">
     <h3>精彩跟帖</h3>
-    <hm-comment  :comment="item" v-for="item in commentList" :key="item.id" ></hm-comment>
+    <hm-comment @reply="reply"  :comment="item" v-for="item in commentList" :key="item.id" ></hm-comment>
   </div>
 
-  <div class="footer">
+  <!-- 回复功能 -->
+  <div class="footer_textarea"  v-if="isShowTextarea"  >
     <div class="write_back">
-      <input type="text" placeholder="写跟帖" >
+      <textarea  ref="textarea" :placeholder="'回复: ' + nickname" v-model="content"></textarea>
+    </div>
+    <van-button class="write_back_btn" type="primary" round size="small" block color="#f33" @click="postComment(post.id)" >发送</van-button>
+  </div>
+  <div class="footer_input"  v-else >
+    <div class="write_back">
+      <input type="text" placeholder="写跟帖" v-model="content" @click="showTextarea" >
     </div>
     <span class="iconfont iconpinglun-" > <i>132</i> </span>
     <span class="iconfont iconshoucang " :class="{'is_star': post.has_star}" @click="star(post.id)" ></span>
@@ -69,13 +76,21 @@ export default {
         user: {},
         content: ''
       },
-      commentList: []
+      commentList: [],
+      isShowTextarea: false,
+      content: '',
+      nickname: '',
+      parentId: ''
     }
   },
   created () {
     // console.log(this.$route.params)
     this.getPost()
     this.getCommentList()
+    this.$bus.$on('reply', this.Onreply)
+  },
+  destroyed () {
+    this.$bus.$off('reply', this.Onreply)
   },
   methods: {
     async getPost () {
@@ -168,13 +183,50 @@ export default {
       } else {
         this.$toast.fail(message)
       }
+    },
+    async showTextarea () {
+      this.isShowTextarea = true
+      await this.$nextTick()
+      console.log(this.$refs.textarea)
+      this.$refs.textarea.focus()
+    },
+    async postComment (id) {
+      console.log('发表评论')
+      if (this.isLogin()) return this.$toast('请先登录')
+      const res = await this.$axios.post(`/post_comment/${id}`, {
+        content: this.content,
+        parent_id: this.parentId
+      })
+      const { statusCode, message } = res.data
+      if (statusCode === 200) {
+        this.$toast.success(message)
+        this.content = ''
+        this.nickname = ''
+        this.parentId = ''
+        this.isShowTextarea = false
+        this.getCommentList()
+      } else {
+        this.$toast.success(message)
+      }
+    },
+    async reply (nickname, id) {
+      console.log(nickname, id)
+      this.nickname = nickname
+      this.parentId = id
+      this.showTextarea()
+    },
+    Onreply (nickname, id) {
+      console.log(nickname, id)
+      this.nickname = nickname
+      this.parentId = id
+      this.showTextarea()
     }
   }
 }
 </script>
 
 <style lang="less" scoped >
-.footer .iconfont.is_star{
+.footer_input .iconfont.is_star{
   color: red;
 }
 .commment_list{
@@ -187,7 +239,37 @@ export default {
     text-align: center;
   }
 }
-.footer{
+.footer_textarea{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 10px 8px ;
+  height: 100px;
+  display: flex;
+  background-color: #fff;
+  align-items: flex-end;
+  justify-content: space-around;
+  .write_back{
+    flex: 1;
+    height: 100%;
+    textarea {
+      width: 100%;
+      height: 100%;
+      font-size: 14px;
+      padding: 10px 18px ;
+      border-radius: 15px;
+      background-color: #eee;
+      border: none;
+      resize: none;
+    }
+  }
+  .write_back_btn{
+    width: 80px;
+    margin-left: 10px;
+    width: 100px;
+  }
+}
+.footer_input{
   position: fixed;
   bottom: 0;
   width: 100%;
