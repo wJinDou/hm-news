@@ -5,7 +5,7 @@
           <div class="logo">
               <span class="iconfont iconnew" ></span>
           </div>
-          <div class="search">
+          <div class="search" @click="$router.push('/search')" >
               <span class="iconfont iconsearch" > </span>搜索
           </div>
         <div class="user" @click="$router.push('/user')" >
@@ -71,10 +71,11 @@ export default {
   },
   methods: {
     async getUserCategory () {
+      // 获取tab列表
       const activeList = JSON.parse(localStorage.getItem('activeList'))
       if (activeList) {
         this.tabList = activeList
-        this.getUserPost(this.tabList[this.active].id)
+        this.getUserPost(this.tabList[0].id)
         return
       }
       const res = await this.$axios.get('/category')
@@ -82,10 +83,11 @@ export default {
       const { statusCode, data } = res.data
       if (statusCode === 200) {
         this.tabList = data
-        this.getUserPost(this.tabList[this.active].id)
+        this.getUserPost(this.tabList[0].id)
       }
     },
     async getUserPost (id) {
+      // 获取文章列表
       const res = await this.$axios.get('/post', {
         params: {
           pageIndex: this.pageIndex,

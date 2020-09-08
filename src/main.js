@@ -23,7 +23,7 @@ Vue.config.productionTip = false
 const bus = new Vue()
 Vue.prototype.$bus = bus
 
-new Vue({
+window.vm = new Vue({
   router,
   render: h => h(App)
 }).$mount('#app')

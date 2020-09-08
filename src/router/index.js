@@ -13,6 +13,7 @@ import myStar from '../views/user/myStar.vue'
 import Index from '../views/index/index.vue'
 import Manage from '../views/index/Manage.vue'
 import PostDetail from '../views/index/PostDetail.vue'
+import Search from '../views/index/Search.vue'
 Vue.use(VueRouter)
 Vue.use(Toast)
 const routes = [
@@ -33,7 +34,8 @@ const routes = [
   { path: '/mystar', component: myStar, name: 'mystar' },
   { path: '/', component: Index, name: '/' },
   { path: '/manage', component: Manage, name: '/manage' },
-  { path: '/postdetail/:id', component: PostDetail, name: '/postdetail' }
+  { path: '/postdetail/:id', component: PostDetail, name: '/postdetail' },
+  { path: '/Search', component: Search, name: '/search' }
 ]
 
 const originalPush = VueRouter.prototype.push

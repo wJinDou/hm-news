@@ -10,7 +10,7 @@
         :offset="100"
         @load="onLoad"
       >
-      <div class="list" v-for="item in list" :key="item.id"  >
+      <div class="list" v-for="item in list" :key="item.id"  @click="$router.push(`/postdetail/${item.post.id}`)" >
         <div class="item">
           <div class="time">{{item.create_date | filterTime('YYYY-MM-DD HH:mm') }}</div>
           <div class="comment" v-if="item.parent" >

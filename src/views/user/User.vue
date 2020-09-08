@@ -66,6 +66,8 @@ export default {
       }
       localStorage.removeItem('token')
       localStorage.removeItem('userId')
+      localStorage.removeItem('activeList')
+      localStorage.removeItem('deactiveList')
       this.$toast.success('已成功退出')
       this.$router.push('/login')
     },

@@ -30,8 +30,8 @@
                   <img :src="$url(post.cover[2].url)" alt="">
                 </div>
                 <div class="user">
-                      <p class="nickname" > {{post.user.nickname}} </p>
-                      <p class="comment" > {{post.comment_length}} 跟帖 </p>
+                      <p class="nickname"> {{post.user.nickname}} </p>
+                      <p class="comment"> {{post.comment_length}} 跟帖 </p>
                 </div>
           </div>
   </div>

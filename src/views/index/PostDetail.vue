@@ -53,7 +53,7 @@
   <!-- 回复功能 -->
   <div class="footer_textarea"  v-if="isShowTextarea"  >
     <div class="write_back">
-      <textarea  ref="textarea" :placeholder="'回复: ' + nickname" v-model="content"></textarea>
+      <textarea  ref="textarea" @blur="onBlur" :placeholder="'回复: ' + nickname" v-model="content"></textarea>
     </div>
     <van-button class="write_back_btn" type="primary" round size="small" block color="#f33" @click="postComment(post.id)" >发送</van-button>
   </div>
@@ -220,6 +220,13 @@ export default {
       this.nickname = nickname
       this.parentId = id
       this.showTextarea()
+    },
+    onBlur () {
+      if (!this.content) {
+        this.isShowTextarea = false
+        this.parentId = ''
+        this.nickname = ''
+      }
     }
   }
 }
@@ -264,7 +271,6 @@ export default {
     }
   }
   .write_back_btn{
-    width: 80px;
     margin-left: 10px;
     width: 100px;
   }
