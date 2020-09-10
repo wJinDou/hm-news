@@ -3,7 +3,8 @@ import Vue from 'vue'
 import router from '../router'
 import { Toast } from 'vant'
 
-const URL = 'http://127.0.0.1:3000'
+// const URL = 'http://127.0.0.1:3000'
+const URL = '/api'
 axios.defaults.baseURL = URL
 Vue.prototype.$base = URL
 // axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;

@@ -43,7 +43,9 @@ export default {
       list: [],
       history_list: [],
       hot_list: ['茄子', '情火', '华为', '大事', '文章', '埃及'],
-      recommendList: []
+      recommendList: [],
+      // 控制页面有内容时是否进行发送请求
+      flag: false
     }
   },
   mounted () {
@@ -61,6 +63,7 @@ export default {
     // 发送请求获取搜索的内容
     async onSearch () {
       if (!this.key) return this.$toast('请输入内容')
+      this.flag = true
       const res = await this.$axios.get('/post_search', {
         params: {
           keyword: this.key
@@ -117,6 +120,7 @@ export default {
     // 鲁大师内容搜索-插件防抖
     _searching: _.debounce(async function () {
       if (!this.key) return this.$toast('请输入内容')
+      if (this.flag) return this.$toast('页面已有内容，无需再次请求')
       const res = await this.$axios.get('/post_search', {
         params: {
           keyword: this.key
@@ -128,6 +132,15 @@ export default {
         this.recommendList = data
       }
     }, 1000)
+  },
+  watch: {
+    key (val) {
+      if (!val) {
+        this.list = []
+        this.recommendList = []
+      }
+      this.flag = false
+    }
   }
 }
 </script>
